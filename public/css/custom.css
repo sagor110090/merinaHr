@@ -1,0 +1,22 @@
+ 
+
+#dataTable, #dataTable th, #dataTable td {
+    border: 1px solid #000000!important;
+}
+#dataTable th {
+    text-align: center;
+}
+hr{
+    background: blanchedalmond;
+}
+.form-control{
+    border: 1px solid #aaaaaa;
+}
+.form-control:focus{
+    border: 1px solid #000000;
+}
+
+.sidebar-nav ul .sidebar-item.selected>.sidebar-link {
+    background:#28b779ad;
+    opacity: 1;
+}

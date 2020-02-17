@@ -12257,7 +12257,7 @@ ul.list-style-none li a:hover {
 
 .sidebar-nav ul .sidebar-item .sidebar-link {
     color: #fff;
-    padding: 14px 15px;
+    padding: 10px 12px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -12302,12 +12302,12 @@ ul.list-style-none li a:hover {
 }
 
 .sidebar-nav ul .sidebar-item .first-level .sidebar-item .sidebar-link i {
-    font-size: 14px
+    font-size: 10px
 }
 
 .sidebar-nav ul .nav-small-cap {
     font-size: 12px;
-    padding: 14px 15px;
+    padding: 8px 12px;
     white-space: nowrap;
     display: -webkit-box;
     display: -ms-flexbox;

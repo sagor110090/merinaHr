@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Hr;
 use App\Leave;
 use Illuminate\Http\Request;
 
@@ -32,13 +32,16 @@ class LeaveController extends Controller
 
 
     public function create()
-    {
+    {   
+        if (!Hr::isUser()) { return redirect()->back()->with('flash_message', 'Permission Demied!');  }
         return view('admin.leave.create');
     }
 
 
     public function store(Request $request)
     {
+        if (!Hr::isUser()) { return redirect()->back()->with('flash_message', 'Permission Demied!');  }
+
         $this->validate($request, [
 			'employee_id' => 'required',
 			'application' => 'required',

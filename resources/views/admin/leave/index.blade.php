@@ -33,10 +33,12 @@
                     @foreach($leave as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->employee_id }}</td>
+                        <td>{{ $item->employee->fname.' '.$item->employee->lname }}</td>
                         <td>{{ $item->date }}</td>
                         <td>{{ $item->application }}</td>
-                        <td>{{ $item->file }}</td>
+                        <td><a href="{{ Storage::url($item->file) }}"  target="_blank">@empty(!$item->file)
+                            <i class="fa fa-file" aria-hidden="true"></i>
+                        @endempty</a></td>
                         <td>
                             <a href="{{ url('/admin/leave/' . $item->id) }}" title="View Leave"><button
                                     class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>

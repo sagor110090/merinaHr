@@ -168,39 +168,7 @@
             });
         });
     </script>
-    {{-- <script>
-        $('.sidebartoggler').click(function (e) { 
-            e.preventDefault();
-            $.ajax({
-                type: "GET",
-                url: "/sidebar/",
-                dataType: "json",
-                success: function (response) {
-                    // console.log(data);
-                }
-            });
-        });
-        var data;
-        $.ajax({
-                type: "GET",
-                url: "/sidebar/show",
-                dataType: "json",
-                success: function (response) {
-                    console.log(response);
-                    data = response;
-                    // alert(data);
-                    if (data == 'on') {
-                        $( ".sidebartoggler" ).trigger( "click" );
-                    }else{
-                        $( ".sidebartoggler" ).trigger( "click" );
-
-                    }
-                }
-            });
-        
-        
-    </script> --}}
-        
+    @include('layouts.parts.schedule')
 </body>
 
 </html>

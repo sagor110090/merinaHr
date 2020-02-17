@@ -21,6 +21,11 @@ class Hr
         return DB::table('users')->where('email',Auth::User()->email)->where('role','admin')->first();
         
     }
+    public function isUser()
+    {
+        return DB::table('users')->where('email',Auth::User()->email)->where('role','user')->first();
+        
+    }
     public function findAll($tableName)
     {
         return DB::table($tableName)->get();

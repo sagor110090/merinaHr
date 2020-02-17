@@ -22,6 +22,20 @@
                                 </span></a></li>
                     </ul>
                 </li>
+                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
+                        href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-developer-board"></i><span
+                            class="hide-menu">Leave</span></a>
+                    <ul aria-expanded="false" class="collapse  first-level">
+                        @if (Hr::isUser())
+                        <li class="sidebar-item"><a href="{{ url('/admin/leave/create') }}" class="sidebar-link"><i
+                                    class="mdi mdi-note-outline"></i><span class="hide-menu">Add Leave
+                                </span></a></li>
+                        @endif
+                        <li class="sidebar-item"><a href="{{ url('/admin/leave') }}" class="sidebar-link"><i
+                                    class="mdi mdi-note-plus"></i><span class="hide-menu"> Leave List
+                                </span></a></li>
+                    </ul>
+                </li>
 
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
                         href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-folder"></i><span
@@ -38,7 +52,6 @@
                     </ul>
                 </li>
 
-                {{-- @if (Hr::isAdmin()) --}}
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
                         href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-flip-to-back"></i><span
                             class="hide-menu">Salary</span></a>
@@ -53,7 +66,6 @@
                                 </span></a></li>
                     </ul>
                 </li>
-                {{-- @endif --}}
                 @if (Hr::isAdmin())
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
                         href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-bank"></i><span
@@ -67,7 +79,7 @@
                                 </span></a></li>
                     </ul>
                 </li>
-                <hr><hr>
+                <hr>
                 @endif
                 @if (Hr::isAdmin())
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"

@@ -11,8 +11,10 @@ use Illuminate\Http\Request;
 class PositionController extends Controller
 {
 
+
     public function index(Request $request)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $keyword = $request->get('search');
         $perPage = 25;
 
@@ -29,17 +31,19 @@ class PositionController extends Controller
 
     public function create()
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         return view('admin.position.create');
     }
 
 
     public function store(Request $request)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $this->validate($request, [
 			'position' => 'required'
 		]);
         $requestData = $request->all();
-        
+
         Position::create($requestData);
 
         return redirect('admin/position')->with('flash_message', 'Position added!');
@@ -48,6 +52,7 @@ class PositionController extends Controller
 
     public function show($id)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $position = Position::findOrFail($id);
 
         return view('admin.position.show', compact('position'));
@@ -55,6 +60,7 @@ class PositionController extends Controller
 
     public function edit($id)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $position = Position::findOrFail($id);
 
         return view('admin.position.edit', compact('position'));
@@ -63,11 +69,12 @@ class PositionController extends Controller
 
     public function update(Request $request, $id)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $this->validate($request, [
 			'position' => 'required'
 		]);
         $requestData = $request->all();
-        
+
         $position = Position::findOrFail($id);
         $position->update($requestData);
 
@@ -77,6 +84,7 @@ class PositionController extends Controller
 
     public function destroy($id)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         Position::destroy($id);
 
         return redirect('admin/position')->with('flash_message', 'Position deleted!');

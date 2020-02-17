@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Salary;                       
-use App\EmployeePersonalInfo;                       
+use App\Salary;
+use App\EmployeePersonalInfo;
 use Illuminate\Http\Request;
 use Auth;
 use Hr;
@@ -28,15 +28,15 @@ class SalaryController extends Controller
 
     public function create()
     {
-        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Demied!');  }
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         return view('admin.salary.create');
     }
 
 
     public function store(Request $request)
     {
-        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Demied!');  }
-        
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
+
         $this->validate($request, [
 			'amount' => 'required',
 			'month' => 'required',
@@ -46,7 +46,7 @@ class SalaryController extends Controller
 			'date' => 'required'
 		]);
         $requestData = $request->all();
-        
+
         Salary::create($requestData);
 
         return redirect('admin/salary')->with('flash_message', 'Salary added!');
@@ -55,15 +55,26 @@ class SalaryController extends Controller
 
     public function show($id)
     {
+        if (Hr::isAdmin()) {
 
         $salary = Salary::findOrFail($id);
 
         return view('admin.salary.show', compact('salary'));
+        }
+        elseif($id == EmployeePersonalInfo::where('email',Auth::User()->email)->first()->employee->id)
+        {
+            $salary = Salary::findOrFail($id);
+
+            return view('admin.salary.show', compact('salary'));
+        }
+        else{
+            return redirect()->back()->with('flash_message', 'Permission Denied!');
+        }
     }
 
     public function edit($id)
     {
-        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Demied!');  }
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
 
         $salary = Salary::findOrFail($id);
 
@@ -73,7 +84,7 @@ class SalaryController extends Controller
 
     public function update(Request $request, $id)
     {
-        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Demied!');  }
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
 
         $this->validate($request, [
 			'amount' => 'required',
@@ -84,7 +95,7 @@ class SalaryController extends Controller
 			'date' => 'required'
 		]);
         $requestData = $request->all();
-        
+
         $salary = Salary::findOrFail($id);
         $salary->update($requestData);
 
@@ -94,7 +105,7 @@ class SalaryController extends Controller
 
     public function destroy($id)
     {
-        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Demied!');  }
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
 
         Salary::destroy($id);
 

@@ -14,6 +14,7 @@ class ExpanseCategoryController extends Controller
 
     public function index(Request $request)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $keyword = $request->get('search');
         $perPage = 25;
 
@@ -34,7 +35,7 @@ class ExpanseCategoryController extends Controller
             return view('admin.expanse-category.create');
         }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied');
+            return redirect()->back()->with('flash_message', 'Permission Denied');
         }
     }
 
@@ -55,6 +56,7 @@ class ExpanseCategoryController extends Controller
 
     public function show($id)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $expansecategory = ExpanseCategory::findOrFail($id);
 
         return view('admin.expanse-category.show', compact('expansecategory'));
@@ -68,7 +70,7 @@ class ExpanseCategoryController extends Controller
             return view('admin.expanse-category.edit', compact('expansecategory'));
         }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied');
+            return redirect()->back()->with('flash_message', 'Permission Denied');
         }
     }
 
@@ -95,7 +97,7 @@ class ExpanseCategoryController extends Controller
             return redirect('admin/expanse-category')->with('flash_message', 'ExpanseCategory deleted!');
         }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied');
+            return redirect()->back()->with('flash_message', 'Permission Denied');
         }
     }
 }

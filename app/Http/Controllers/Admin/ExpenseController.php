@@ -15,6 +15,7 @@ class ExpenseController extends Controller
 
     public function index(Request $request)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $keyword = $request->get('search');
         $perPage = 25;
 
@@ -38,7 +39,7 @@ class ExpenseController extends Controller
             return view('admin.expense.create');
         }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied');
+            return redirect()->back()->with('flash_message', 'Permission Denied');
         }
     }
 
@@ -60,6 +61,7 @@ class ExpenseController extends Controller
 
     public function show($id)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $expense = Expense::findOrFail($id);
 
         return view('admin.expense.show', compact('expense'));
@@ -73,7 +75,7 @@ class ExpenseController extends Controller
             return view('admin.expense.edit', compact('expense'));
         }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied');
+            return redirect()->back()->with('flash_message', 'Permission Denied');
         }
     }
 
@@ -103,7 +105,7 @@ class ExpenseController extends Controller
             return redirect('admin/expense')->with('flash_message', 'Expense deleted!');
         }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied');
+            return redirect()->back()->with('flash_message', 'Permission Denied');
         }
     }
 }

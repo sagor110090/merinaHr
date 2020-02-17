@@ -14,6 +14,7 @@ class CompanyController extends Controller
 
     public function index(Request $request)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $keyword = $request->get('search');
         $perPage = 25;
 
@@ -30,6 +31,7 @@ class CompanyController extends Controller
 
     public function create()
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         return view('admin.company.create');
     }
 
@@ -37,6 +39,7 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
 
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $requestData = $request->all();
 
         Company::create($requestData);
@@ -47,6 +50,7 @@ class CompanyController extends Controller
 
     public function show($id)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $company = Company::findOrFail($id);
 
         return view('admin.company.show', compact('company'));
@@ -85,6 +89,7 @@ class CompanyController extends Controller
 
     public function destroy($id)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         Company::destroy($id);
 
         return redirect('admin/company')->with('flash_message', 'Company deleted!');

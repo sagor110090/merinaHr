@@ -13,6 +13,7 @@ class DepartmentController extends Controller
 
     public function index(Request $request)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $keyword = $request->get('search');
         $perPage = 25;
 
@@ -29,17 +30,19 @@ class DepartmentController extends Controller
 
     public function create()
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         return view('admin.department.create');
     }
 
 
     public function store(Request $request)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $this->validate($request, [
 			'department' => 'required'
 		]);
         $requestData = $request->all();
-        
+
         Department::create($requestData);
 
         return redirect('admin/department')->with('flash_message', 'Department added!');
@@ -48,6 +51,7 @@ class DepartmentController extends Controller
 
     public function show($id)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $department = Department::findOrFail($id);
 
         return view('admin.department.show', compact('department'));
@@ -55,6 +59,7 @@ class DepartmentController extends Controller
 
     public function edit($id)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $department = Department::findOrFail($id);
 
         return view('admin.department.edit', compact('department'));
@@ -63,11 +68,12 @@ class DepartmentController extends Controller
 
     public function update(Request $request, $id)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $this->validate($request, [
 			'department' => 'required'
 		]);
         $requestData = $request->all();
-        
+
         $department = Department::findOrFail($id);
         $department->update($requestData);
 
@@ -77,6 +83,7 @@ class DepartmentController extends Controller
 
     public function destroy($id)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         Department::destroy($id);
 
         return redirect('admin/department')->with('flash_message', 'Department deleted!');

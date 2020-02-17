@@ -50,7 +50,7 @@ class EmployeeController extends Controller
             return view('admin.employee.create');
         }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied');
+            return redirect()->back()->with('flash_message', 'Permission Denied');
         }
     }
 
@@ -71,7 +71,7 @@ class EmployeeController extends Controller
             return redirect('admin/employee')->with('flash_message', 'Employee added!');
         }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied');
+            return redirect()->back()->with('flash_message', 'Permission Denied');
         }
     }
 
@@ -96,7 +96,7 @@ class EmployeeController extends Controller
             return view('admin.employee.edit', compact('employee'));
         }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied');
+            return redirect()->back()->with('flash_message', 'Permission Denied');
         }
     }
 

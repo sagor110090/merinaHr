@@ -1,6 +1,6 @@
 <div class="form-group {{ $errors->has('expanse_categories_id') ? 'has-error' : ''}}">
     <label for="expanse_categories_id" class="control-label">{{ 'Expanse Categories' }}</label>
-    <select name="bank_id" id="bank_id" class="select form-control">
+    <select name="expanse_categories_id" id="expanse_categories_id" class="select form-control">
         @foreach (Hr::findAll('expanse_categories') as $item)
             <option value="{{$item->id}}">{{$item->category_name}}</option>
         @endforeach
@@ -18,6 +18,7 @@
     <input class="form-control" name="date" type="date" id="date" value="{{ isset($expense->date) ? $expense->date : ''}}" required>
     {!! $errors->first('date', '<p class="help-block">:message</p>') !!}
 </div>
+
 
 
 <div class="form-group">

@@ -25,7 +25,7 @@
 </div>
 <div class="form-group {{ $errors->has('ending_date') ? 'has-error' : ''}}">
     <label for="ending_date" class="control-label">{{ 'Ending Date' }}</label>
-    <input class="form-control" name="ending_date" type="date" id="ending_date" value="{{ isset($schedule->ending_date) ? $schedule->ending_date : ''}}" required>
+    <input class="form-control" name="ending_date" type="date" id="ending_date" value="{{ isset($schedule->ending_date) ? $schedule->ending_date : ''}}" >
     {!! $errors->first('ending_date', '<p class="help-block">:message</p>') !!}
 </div>
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\ExpanseCategory;
 use Illuminate\Http\Request;
+use Hr;
 
 class ExpanseCategoryController extends Controller
 {
@@ -29,7 +30,12 @@ class ExpanseCategoryController extends Controller
 
     public function create()
     {
-        return view('admin.expanse-category.create');
+        if(Hr::isAdmin()){
+            return view('admin.expanse-category.create');
+        }
+        else{
+            return redirect()->back()->with('flash_message', 'Permission Demied');
+        }
     }
 
 
@@ -39,10 +45,11 @@ class ExpanseCategoryController extends Controller
 			'category_name' => 'required'
 		]);
         $requestData = $request->all();
-        
-        ExpanseCategory::create($requestData);
+        if(Hr::isAdmin()){
+            ExpanseCategory::create($requestData);
 
-        return redirect('admin/expanse-category')->with('flash_message', 'ExpanseCategory added!');
+            return redirect('admin/expanse-category')->with('flash_message', 'ExpanseCategory added!');
+        }
     }
 
 
@@ -55,9 +62,14 @@ class ExpanseCategoryController extends Controller
 
     public function edit($id)
     {
-        $expansecategory = ExpanseCategory::findOrFail($id);
+        if(Hr::isAdmin()){
+            $expansecategory = ExpanseCategory::findOrFail($id);
 
-        return view('admin.expanse-category.edit', compact('expansecategory'));
+            return view('admin.expanse-category.edit', compact('expansecategory'));
+        }
+        else{
+            return redirect()->back()->with('flash_message', 'Permission Demied');
+        }
     }
 
 
@@ -67,18 +79,23 @@ class ExpanseCategoryController extends Controller
 			'category_name' => 'required'
 		]);
         $requestData = $request->all();
-        
-        $expansecategory = ExpanseCategory::findOrFail($id);
-        $expansecategory->update($requestData);
-
+        if(Hr::isAdmin()){
+            $expansecategory = ExpanseCategory::findOrFail($id);
+            $expansecategory->update($requestData);
+        }
         return redirect('admin/expanse-category')->with('flash_message', 'ExpanseCategory updated!');
     }
 
 
     public function destroy($id)
     {
-        ExpanseCategory::destroy($id);
+        if(Hr::isAdmin()){
+            ExpanseCategory::destroy($id);
 
-        return redirect('admin/expanse-category')->with('flash_message', 'ExpanseCategory deleted!');
+            return redirect('admin/expanse-category')->with('flash_message', 'ExpanseCategory deleted!');
+        }
+        else{
+            return redirect()->back()->with('flash_message', 'Permission Demied');
+        }
     }
 }

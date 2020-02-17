@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 
 use App\Expense;
 use Illuminate\Http\Request;
+use Auth;
+use Hr;
 
 class ExpenseController extends Controller
 {
@@ -31,7 +33,13 @@ class ExpenseController extends Controller
 
     public function create()
     {
-        return view('admin.expense.create');
+
+        if(Hr::isAdmin()){
+            return view('admin.expense.create');
+        }
+        else{
+            return redirect()->back()->with('flash_message', 'Permission Demied');
+        }
     }
 
 
@@ -43,9 +51,9 @@ class ExpenseController extends Controller
 			'date' => 'required'
 		]);
         $requestData = $request->all();
-        
+        if(Hr::isAdmin()){
         Expense::create($requestData);
-
+        }
         return redirect('admin/expense')->with('flash_message', 'Expense added!');
     }
 
@@ -59,9 +67,14 @@ class ExpenseController extends Controller
 
     public function edit($id)
     {
-        $expense = Expense::findOrFail($id);
+        if(Hr::isAdmin()){
+            $expense = Expense::findOrFail($id);
 
-        return view('admin.expense.edit', compact('expense'));
+            return view('admin.expense.edit', compact('expense'));
+        }
+        else{
+            return redirect()->back()->with('flash_message', 'Permission Demied');
+        }
     }
 
 
@@ -73,18 +86,24 @@ class ExpenseController extends Controller
 			'date' => 'required'
 		]);
         $requestData = $request->all();
-        
-        $expense = Expense::findOrFail($id);
-        $expense->update($requestData);
 
+        if(Hr::isAdmin()){
+            $expense = Expense::findOrFail($id);
+            $expense->update($requestData);
+        }
         return redirect('admin/expense')->with('flash_message', 'Expense updated!');
     }
 
 
     public function destroy($id)
     {
-        Expense::destroy($id);
+        if(Hr::isAdmin()){
+            Expense::destroy($id);
 
-        return redirect('admin/expense')->with('flash_message', 'Expense deleted!');
+            return redirect('admin/expense')->with('flash_message', 'Expense deleted!');
+        }
+        else{
+            return redirect()->back()->with('flash_message', 'Permission Demied');
+        }
     }
 }

@@ -9,12 +9,16 @@
             <div class="d-md-flex align-items-center">
                 <div>
                     <h4 class="card-title">Salary List</h4>
+                    @if (Hr::isAdmin())
                     <h5 class="card-subtitle">Create New Salary</h5>
+                    @endif
                 </div>
             </div>
+            @if (Hr::isAdmin())
             <a href="{{ url('/admin/salary/create') }}" class="btn btn-success btn-sm" title="Add New Salary">
                 <i class="fa fa-plus" aria-hidden="true"></i> Add New
             </a>
+            @endif
             <br />
             <br />
             {{-- <div class="table-responsive"> --}}
@@ -47,6 +51,8 @@
                             <a href="{{ url('/admin/salary/' . $item->id) }}" title="View Salary"><button
                                     class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>
                                     View</button></a>
+
+                            @if (Hr::isAdmin())
                             <a href="{{ url('/admin/salary/' . $item->id . '/edit') }}" title="Edit Salary"><button
                                     class="btn btn-primary btn-sm"><i class="fa fa-edit" aria-hidden="true"></i>
                                     Edit</button></a>
@@ -59,6 +65,7 @@
                                     onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash"
                                         aria-hidden="true"></i> Delete</button>
                             </form>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

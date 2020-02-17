@@ -1,20 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 Route::get('/crudIndex', 'HomeController@crudIndex');
@@ -24,6 +9,9 @@ Route::post('/crudMaker', 'HomeController@crudMaker');
 //------------------------------------------------------------
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('/', 'HomeController@index');
+    Route::get('/sidebar', 'HomeController@sidebar');
+    Route::get('/sidebar/show', 'HomeController@sidebarShow');
     Route::get('/dashboard', 'HomeController@index');
     Route::resource('admin/department', 'Admin\\DepartmentController');
     Route::resource('admin/department', 'Admin\\DepartmentController');
@@ -39,5 +27,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('admin/expanse-category', 'Admin\\ExpanseCategoryController');
     Route::resource('admin/expense', 'Admin\\ExpenseController');
     Route::resource('admin/salary', 'Admin\\SalaryController');
+    Route::get('admin/report/monthly', 'Admin\\ReportController@monthly');
+    Route::get('admin/report/previous/monthly/', 'Admin\\ReportController@monthlyPrivousReport');
+    Route::resource('admin/company', 'Admin\\CompanyController');
+    Route::resource('admin/leave', 'Admin\\LeaveController');
+    Route::resource('admin/leave', 'Admin\\LeaveController');
+
 });
+
 

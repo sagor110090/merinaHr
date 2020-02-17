@@ -9,6 +9,7 @@
 
             <a href="{{ url('/admin/salary') }}" title="Back"><button class="btn btn-warning btn-sm"><i
                         class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+            @if (Hr::isAdmin())
             <a href="{{ url('/admin/salary/' . $salary->id . '/edit') }}" title="Edit Salary"><button
                     class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     Edit</button></a>
@@ -21,6 +22,7 @@
                     onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o"
                         aria-hidden="true"></i> Delete</button>
             </form>
+            @endif
             <br />
             <br />
 

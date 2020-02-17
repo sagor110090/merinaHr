@@ -9,12 +9,13 @@
 
                         <a href="{{ url('/admin/employee-personal-info') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <a href="{{ url('/admin/employee-personal-info/' . $employeepersonalinfo->id . '/edit') }}" title="Edit EmployeePersonalInfo"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
-
+                        @if(Hr::isAdmin())
                         <form method="POST" action="{{ url('admin/employeepersonalinfo' . '/' . $employeepersonalinfo->id) }}" accept-charset="UTF-8" style="display:inline">
                             {{ method_field('DELETE') }}
                             {{ csrf_field() }}
                             <button type="submit" class="btn btn-danger btn-sm" title="Delete EmployeePersonalInfo" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
                         </form>
+                        @endif
                         <br/>
                         <br/>
 

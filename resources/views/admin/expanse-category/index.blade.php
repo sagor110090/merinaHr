@@ -18,7 +18,7 @@
                     </a>
                     <br />
                     <br />
-                    {{-- <div class="table-responsive"> --}}
+                    <div class="table-responsive">
                         <table class="table" id="dataTable">
                             <thead>
                                 <tr>
@@ -54,7 +54,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    {{-- </div> --}}
+                    </div>
 
                 </div>
             </div>

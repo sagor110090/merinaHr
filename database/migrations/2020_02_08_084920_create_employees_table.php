@@ -14,6 +14,7 @@ class CreateEmployeesTable extends Migration
             $table->integer('department_id')->unsigned();
             $table->string('fname')->nullable();
             $table->string('lname')->nullable();
+            $table->string('salary')->nullable();
             $table->integer('position_id')->unsigned();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();

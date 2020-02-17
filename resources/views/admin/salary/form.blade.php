@@ -28,16 +28,17 @@
     {{-- <input class="form-control" name="bank_id" type="text" id="bank_id" value="{{ isset($salary->bank_id) ? $salary->bank_id : ''}}" required> --}}
     <select name="bank_id" id="bank_id" class="select form-control">
         @foreach (Hr::findAll('banks') as $item)
-            <option value="{{$item->id}}">{{$item->name}}</option>
+            <option value="{{$item->id}}">{{$item->bank_name}}</option>
         @endforeach
     </select>
     {!! $errors->first('bank_id', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('chcek_no') ? 'has-error' : ''}}">
-    <label for="chcek_no" class="control-label">{{ 'Chcek No' }}</label>
+    <label for="chcek_no" class="control-label">{{ 'Chcek  / Transaction No' }}</label>
     <input class="form-control" name="chcek_no" type="text" id="chcek_no" value="{{ isset($salary->chcek_no) ? $salary->chcek_no : ''}}" required>
     {!! $errors->first('chcek_no', '<p class="help-block">:message</p>') !!}
 </div>
+
 <div class="form-group {{ $errors->has('date') ? 'has-error' : ''}}">
     <label for="date" class="control-label">{{ 'Date' }}</label>
     <input class="form-control" name="date" type="date" id="date" value="{{ isset($salary->date) ? $salary->date : ''}}" required>

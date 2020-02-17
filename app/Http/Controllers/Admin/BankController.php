@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Bank;
 use Illuminate\Http\Request;
+use Hr;
 
 class BankController extends Controller
 {
@@ -32,7 +33,12 @@ class BankController extends Controller
 
     public function create()
     {
-        return view('admin.bank.create');
+        if(Hr::isAdmin()){
+            return view('admin.bank.create');
+        }
+        else{
+            return redirect()->back()->with('flash_message', 'Permission Demied');
+        }
     }
 
 
@@ -45,10 +51,14 @@ class BankController extends Controller
 			'account_Id' => 'required'
 		]);
         $requestData = $request->all();
-        
+        if(Hr::isAdmin()){
         Bank::create($requestData);
 
         return redirect('admin/bank')->with('flash_message', 'Bank added!');
+        }
+        else{
+            return redirect()->back()->with('flash_message', 'Permission Demied');
+        }
     }
 
 
@@ -61,9 +71,14 @@ class BankController extends Controller
 
     public function edit($id)
     {
-        $bank = Bank::findOrFail($id);
+        if(Hr::isAdmin()){
+            $bank = Bank::findOrFail($id);
 
-        return view('admin.bank.edit', compact('bank'));
+            return view('admin.bank.edit', compact('bank'));
+        }
+        else{
+            return redirect()->back()->with('flash_message', 'Permission Demied');
+        }
     }
 
 
@@ -76,9 +91,10 @@ class BankController extends Controller
 			'account_Id' => 'required'
 		]);
         $requestData = $request->all();
-        
-        $bank = Bank::findOrFail($id);
-        $bank->update($requestData);
+        if(Hr::isAdmin()){
+            $bank = Bank::findOrFail($id);
+            $bank->update($requestData);
+        }
 
         return redirect('admin/bank')->with('flash_message', 'Bank updated!');
     }
@@ -86,8 +102,14 @@ class BankController extends Controller
 
     public function destroy($id)
     {
-        Bank::destroy($id);
+        if (Hr::isAdmin()) {
+            Bank::destroy($id);
 
-        return redirect('admin/bank')->with('flash_message', 'Bank deleted!');
+            return redirect('admin/bank')->with('flash_message', 'Bank deleted!');
+        }
+        else{
+            return redirect()->back()->with('flash_message', 'Permission Demied');
+        }
+
     }
 }

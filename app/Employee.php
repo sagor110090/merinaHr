@@ -17,7 +17,7 @@ class Employee extends Model
     protected $primaryKey = 'id';
 
 
-    protected $fillable = ['department_id', 'position_id', 'start_date', 'end_date','fname','lname'];
+    protected $fillable = ['department_id', 'position_id', 'start_date', 'end_date','fname','lname','salary'];
 
     public function department()
     {
@@ -26,6 +26,10 @@ class Employee extends Model
     public function position()
     {
         return $this->belongsTo('App\Position');
+    }
+    public function attendance()
+    {
+        return $this->hasMany('App\Attendance');
     }
     
 }

@@ -41,6 +41,12 @@
     {!! $errors->first('end_date', '<p class="help-block">:message</p>') !!}
 </div>
 
+<div class="form-group {{ $errors->has('salary') ? 'has-error' : ''}}">
+    <label for="salary" class="control-label">{{ 'Salary' }}</label>
+    <input class="form-control" name="salary" type="salary" id="salary" value="{{ isset($employee->salary) ? $employee->salary : ''}}" required>
+    {!! $errors->first('salary', '<p class="help-block">:message</p>') !!}
+</div>
+
 
 <div class="form-group">
     <input class="btn btn-primary btn-sm" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">

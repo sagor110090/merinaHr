@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
@@ -7,27 +6,40 @@ use App\Http\Controllers\Controller;
 
 use App\EmployeePersonalInfo;
 use Illuminate\Http\Request;
+use App\User;
+use App\Employee;
+use DB;
+use Illuminate\Support\Facades\Hash;
+use Hr;
+use Auth;
+
 
 class EmployeePersonalInfoController extends Controller
 {
 
     public function index(Request $request)
     {
-        $keyword = $request->get('search');
-        $perPage = 25;
+        if(Hr::isAdmin()){
+            $keyword = $request->get('search');
+            $perPage = 25;
 
-        if (!empty($keyword)) {
-            $employeepersonalinfo = EmployeePersonalInfo::where('picture', 'LIKE', "%$keyword%")
-                ->orWhere('age', 'LIKE', "%$keyword%")
-                ->orWhere('address', 'LIKE', "%$keyword%")
-                ->orWhere('mobile', 'LIKE', "%$keyword%")
-                ->orWhere('email', 'LIKE', "%$keyword%")
-                ->orWhere('file', 'LIKE', "%$keyword%")
-                ->orWhere('employee_id', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
-        } else {
-            $employeepersonalinfo = EmployeePersonalInfo::latest()->paginate($perPage);
+            if (!empty($keyword)) {
+                $employeepersonalinfo = EmployeePersonalInfo::where('picture', 'LIKE', "%$keyword%")
+                    ->orWhere('age', 'LIKE', "%$keyword%")
+                    ->orWhere('address', 'LIKE', "%$keyword%")
+                    ->orWhere('mobile', 'LIKE', "%$keyword%")
+                    ->orWhere('email', 'LIKE', "%$keyword%")
+                    ->orWhere('file', 'LIKE', "%$keyword%")
+                    ->orWhere('employee_id', 'LIKE', "%$keyword%")
+                    ->latest()->paginate($perPage);
+            } else {
+                $employeepersonalinfo = EmployeePersonalInfo::latest()->paginate($perPage);
+            }
         }
+        else{
+            $employeepersonalinfo = EmployeePersonalInfo::where('email',Auth::User()->email)->get();
+        }
+
 
         return view('admin.employee-personal-info.index', compact('employeepersonalinfo'));
     }
@@ -35,15 +47,30 @@ class EmployeePersonalInfoController extends Controller
 
     public function create()
     {
-        return view('admin.employee-personal-info.create');
+        if(Hr::isAdmin()){
+            return view('admin.employee-personal-info.create');
+        }
+        else{
+            return redirect()->back()->with('flash_message', 'Permission Demied!');
+        }
     }
 
 
     public function store(Request $request)
     {
         $this->validate($request, [
-			'employee_id' => 'required'
+			'employee_id' => 'required',
+			'email' => 'required'
 		]);
+        $employee = Employee::where('id',$request->employee_id)->first();
+        $name = $employee->fname.' '.$employee->lname;
+        $user = new User;
+        $user->name = $name;
+        $user->email = $request->email;
+        $user->role = 'user';
+        $user->password = Hash::make('12345678');
+        $user->save();
+
         $requestData = $request->all();
                 if ($request->hasFile('picture')) {
             $requestData['picture'] = $request->file('picture')
@@ -55,9 +82,11 @@ class EmployeePersonalInfoController extends Controller
                 ->store('uploads', 'public');
         }
 
+        if(Hr::isAdmin()){
         EmployeePersonalInfo::create($requestData);
 
         return redirect('admin/employee-personal-info')->with('flash_message', 'EmployeePersonalInfo added!');
+        }
     }
 
 
@@ -70,34 +99,57 @@ class EmployeePersonalInfoController extends Controller
 
     public function edit($id)
     {
-        $employeepersonalinfo = EmployeePersonalInfo::findOrFail($id);
 
-        return view('admin.employee-personal-info.edit', compact('employeepersonalinfo'));
+
+        if (Hr::isAdmin()) {
+            $employeepersonalinfo = EmployeePersonalInfo::findOrFail($id);
+            return view('admin.employee-personal-info.edit', compact('employeepersonalinfo'));
+        }
+        elseif($id==EmployeePersonalInfo::where('email',Auth::User()->email)->first()->employee->id){
+
+            $employeepersonalinfo = EmployeePersonalInfo::findOrFail($id);
+            return view('admin.employee-personal-info.edit', compact('employeepersonalinfo'));
+        }
+        else{
+            return redirect()->back()->with('flash_message', 'Permission Demied');
+        }
+
+
     }
 
 
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-			'employee_id' => 'required'
+			'employee_id' => 'required',
+			'email' => 'required'
 		]);
         $requestData = $request->all();
                 if ($request->hasFile('picture')) {
             $requestData['picture'] = $request->file('picture')
                 ->store('uploads', 'public');
         }
+        $user = new User;
+        $user->name = DB::table('employees')->where('id',$request->employee_id)->first()->fname;
 
-        $employeepersonalinfo = EmployeePersonalInfo::findOrFail($id);
-        $employeepersonalinfo->update($requestData);
 
-        return redirect('admin/employee-personal-info')->with('flash_message', 'EmployeePersonalInfo updated!');
+            $employeepersonalinfo = EmployeePersonalInfo::findOrFail($id);
+            $employeepersonalinfo->update($requestData);
+
+            return redirect('admin/employee-personal-info')->with('flash_message', 'EmployeePersonalInfo updated!');
+
     }
 
 
     public function destroy($id)
     {
-        EmployeePersonalInfo::destroy($id);
+        if(Hr::isAdmin()){
+            EmployeePersonalInfo::destroy($id);
 
-        return redirect('admin/employee-personal-info')->with('flash_message', 'EmployeePersonalInfo deleted!');
+            return redirect('admin/employee-personal-info')->with('flash_message', 'EmployeePersonalInfo deleted!');
+        }
+        else{
+            return redirect()->back()->with('flash_message', 'Permission Demied!');
+        }
     }
 }

@@ -60,7 +60,7 @@ class AttendanceController extends Controller
         //     'employid.unique' => 'You have to choose alrady empolyee name!',
         // ]);
 
-        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Demied!');  }
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
 
         date_default_timezone_set('Asia/Dhaka');
 
@@ -105,6 +105,7 @@ class AttendanceController extends Controller
     public function show($id)
     {
         // if (Hr::isAdmin()) {
+            if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
             $attendance = Attendance::findOrFail($id);
 
             return view('admin.attendance.show', compact('attendance'));
@@ -120,7 +121,7 @@ class AttendanceController extends Controller
         }
         else
         {
-            return redirect()->back()->with('flash_message', 'Permission Demied!');
+            return redirect()->back()->with('flash_message', 'Permission Denied!');
         }
     }
 
@@ -150,7 +151,7 @@ class AttendanceController extends Controller
             return redirect('admin/attendance')->with('flash_message', 'Attendance deleted!');
         }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied!');
+            return redirect()->back()->with('flash_message', 'Permission Denied!');
         }
     }
 }

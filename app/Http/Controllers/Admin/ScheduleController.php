@@ -46,13 +46,14 @@ class ScheduleController extends Controller
         return view('admin.schedule.create');
         }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied!');
+            return redirect()->back()->with('flash_message', 'Permission Denied!');
         }
     }
 
 
     public function store(Request $request)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $this->validate($request, [
 			'start_time' => 'required',
 			'end_time' => 'required',
@@ -69,9 +70,23 @@ class ScheduleController extends Controller
 
     public function show($id)
     {
-        $schedule = Schedule::findOrFail($id);
+        $schedule_id = Schedule::where('id',$id)->first()->employee_id;
+        $user_id = EmployeePersonalInfo::where('email',Auth::User()->email)->first()->employee->id;
 
-        return view('admin.schedule.show', compact('schedule'));
+
+        if(Hr::isAdmin()){
+            $schedule = Schedule::findOrFail($id);
+
+            return view('admin.schedule.show', compact('schedule'));
+        }
+        elseif( $schedule_id == $user_id){
+            $schedule = Schedule::findOrFail($id);
+
+            return view('admin.schedule.show', compact('schedule'));
+        }
+        else{
+            return redirect()->back()->with('flash_message', 'Permission Denied!');
+        }
     }
 
     public function edit($id)
@@ -89,7 +104,7 @@ class ScheduleController extends Controller
         //     return view('admin.schedule.edit', compact('schedule'));
         // }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied!');
+            return redirect()->back()->with('flash_message', 'Permission Denied!');
         }
     }
 
@@ -97,6 +112,8 @@ class ScheduleController extends Controller
     public function update(Request $request, $id)
     {
 
+
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $this->validate($request, [
 			'start_time' => 'required',
 			'end_time' => 'required',
@@ -122,7 +139,7 @@ class ScheduleController extends Controller
             return redirect('admin/schedule')->with('flash_message', 'Schedule deleted!');
         }
         else{
-            return redirect()->back()->with('flash_message', ' Permission Demied');
+            return redirect()->back()->with('flash_message', ' Permission Denied');
         }
     }
 }

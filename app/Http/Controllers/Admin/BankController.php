@@ -14,6 +14,7 @@ class BankController extends Controller
 
     public function index(Request $request)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $keyword = $request->get('search');
         $perPage = 25;
 
@@ -37,7 +38,7 @@ class BankController extends Controller
             return view('admin.bank.create');
         }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied');
+            return redirect()->back()->with('flash_message', 'Permission Denied');
         }
     }
 
@@ -57,13 +58,14 @@ class BankController extends Controller
         return redirect('admin/bank')->with('flash_message', 'Bank added!');
         }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied');
+            return redirect()->back()->with('flash_message', 'Permission Denied');
         }
     }
 
 
     public function show($id)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $bank = Bank::findOrFail($id);
 
         return view('admin.bank.show', compact('bank'));
@@ -77,7 +79,7 @@ class BankController extends Controller
             return view('admin.bank.edit', compact('bank'));
         }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied');
+            return redirect()->back()->with('flash_message', 'Permission Denied');
         }
     }
 
@@ -108,7 +110,7 @@ class BankController extends Controller
             return redirect('admin/bank')->with('flash_message', 'Bank deleted!');
         }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied');
+            return redirect()->back()->with('flash_message', 'Permission Denied');
         }
 
     }

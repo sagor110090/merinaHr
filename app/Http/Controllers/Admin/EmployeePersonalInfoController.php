@@ -51,13 +51,14 @@ class EmployeePersonalInfoController extends Controller
             return view('admin.employee-personal-info.create');
         }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied!');
+            return redirect()->back()->with('flash_message', 'Permission Denied!');
         }
     }
 
 
     public function store(Request $request)
     {
+        if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $this->validate($request, [
 			'employee_id' => 'required',
 			'email' => 'required'
@@ -111,7 +112,7 @@ class EmployeePersonalInfoController extends Controller
             return view('admin.employee-personal-info.edit', compact('employeepersonalinfo'));
         }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied');
+            return redirect()->back()->with('flash_message', 'Permission Denied');
         }
 
 
@@ -149,7 +150,7 @@ class EmployeePersonalInfoController extends Controller
             return redirect('admin/employee-personal-info')->with('flash_message', 'EmployeePersonalInfo deleted!');
         }
         else{
-            return redirect()->back()->with('flash_message', 'Permission Demied!');
+            return redirect()->back()->with('flash_message', 'Permission Denied!');
         }
     }
 }

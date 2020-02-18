@@ -34,7 +34,8 @@ class LeaveController extends Controller
     public function create()
     {   
         if (!Hr::isUser()) { return redirect()->back()->with('flash_message', 'Permission Demied!');  }
-        return view('admin.leave.create');
+        $leave = '';
+        return view('admin.leave.create',compact('leave'));
     }
 
 

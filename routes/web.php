@@ -32,6 +32,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('admin/company', 'Admin\\CompanyController');
     Route::resource('admin/leave', 'Admin\\LeaveController');
     Route::resource('admin/leave', 'Admin\\LeaveController');
+    Route::get('admin/settings', 'Admin\\RoleSettingsContoller@show');
+    Route::post('admin/settings/{id}', 'Admin\\RoleSettingsContoller@update');
 
 });
 

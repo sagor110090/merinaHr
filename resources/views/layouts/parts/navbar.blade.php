@@ -7,7 +7,7 @@
           <!-- ============================================================== -->
           <!-- Logo -->
           <!-- ============================================================== -->
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="{{ asset('/') }}">
               <!-- Logo icon -->
               <b class="logo-icon p-l-10">
                   <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -103,17 +103,6 @@
                                   <!-- Message -->
                                   <a href="javascript:void(0)" class="link border-top">
                                       <div class="d-flex no-block align-items-center p-10">
-                                          <span class="btn btn-info btn-circle"><i
-                                                  class="ti-settings"></i></span>
-                                          <div class="m-l-10">
-                                              <h5 class="m-b-0">Settings</h5>
-                                              <span class="mail-desc">You can customize this template</span>
-                                          </div>
-                                      </div>
-                                  </a>
-                                  <!-- Message -->
-                                  <a href="javascript:void(0)" class="link border-top">
-                                      <div class="d-flex no-block align-items-center p-10">
                                           <span class="btn btn-primary btn-circle"><i
                                                   class="ti-user"></i></span>
                                           <div class="m-l-10">
@@ -156,7 +145,7 @@
                       <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i>
                         {{ucfirst(Auth::user()->role)}}</a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="javascript:void(0)"><i
+                      <a class="dropdown-item" href="{{ url('admin/settings', []) }}"><i
                               class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
                       <div class="dropdown-divider"></div>
                       <form method="POST" action="{{ route('logout') }}">

@@ -28,6 +28,22 @@
     <input class="form-control" name="ending_date" type="date" id="ending_date" value="{{ isset($schedule->ending_date) ? $schedule->ending_date : ''}}" >
     {!! $errors->first('ending_date', '<p class="help-block">:message</p>') !!}
 </div>
+<div class="form-group {{ $errors->has('restDay') ? 'has-error' : ''}}">
+    <label for="restDay" class="control-label">{{ 'Rest Day' }}</label>
+    @php
+        $days = isset($schedule->restDay) ? json_decode($schedule->restDay) : '';
+    @endphp
+    <select class="select-multiple form-control" name="restDay[]" multiple="multiple" value="{{ isset($schedule->restDay) ? $schedule->restDay : ''}}" required>
+        <option  value='mon' {{ isset($schedule->restDay) ? in_array("mon", $days) ? 'selected' : '' : ''}} > Monday</option>
+        <option {{ isset($schedule->restDay) ? in_array("tue", $days) ? 'selected' : '' : ''}} value='tue'>Tuesday</option>
+        <option {{ isset($schedule->restDay) ? in_array("wed", $days) ? 'selected' : '' : ''}} value='wed'>Wednesday</option>
+        <option {{ isset($schedule->restDay) ? in_array("thu", $days) ? 'selected' : '' : ''}} value='thu'>Thursday</option>
+        <option {{ isset($schedule->restDay) ? in_array("fri", $days) ? 'selected' : '' : ''}} value='fri'>Friday</option>
+        <option {{ isset($schedule->restDay) ? in_array("sat", $days) ? 'selected' : '' : ''}} value='sat'>Saturday</option>
+        <option {{ isset($schedule->restDay) ? in_array("sun", $days) ? 'selected' : '' : ''}} value='sun'>Sunday</option>
+    </select>
+    {!! $errors->first('restDay', '<p class="help-block">:message</p>') !!}
+</div>
 
 
 <div class="form-group">

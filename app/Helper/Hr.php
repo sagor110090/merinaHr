@@ -68,6 +68,8 @@ class Hr
     }
     function getDays($start, $iDays, $aDays,$format) 
     {
+        if ($aDays != null) {
+          
         
       $dStart = date('d', strtotime($start));
       $YM     = substr($start, 0, 8);
@@ -95,13 +97,20 @@ class Hr
         return count($dateCount);
         
     }
+}
     public function monthlyReport()
     {
         return DB::table('monthlyReports')->get();
     }
-
+    public function restDay($employee_id)
+    {
+        $restDay = json_decode(DB::table('schedules')->where('employee_id',$employee_id)->first()->restDay);
+        $dayOfyear = Hr::cal_days_in_year(date('Y'));
+        return  Hr::getDays(date("Y/m/01"),$dayOfyear,$restDay,'D, M jS Y');
+    }
     public function countWorkingDayInMonth($offday)
     {
+        // dd($offday[0]);
         $dayOfyear = Hr::cal_days_in_year(date('Y'));
         return cal_days_in_month(CAL_GREGORIAN,date('m'),date('Y')) - Hr::getDays(date("Y/m/01"),$dayOfyear,$offday[0],'D, M jS Y');
               

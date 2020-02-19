@@ -17,7 +17,7 @@ class Schedule extends Model
     protected $primaryKey = 'id';
 
 
-    protected $fillable = ['start_time', 'end_time', 'starting_date', 'ending_date', 'employee_id'];
+    protected $fillable = ['start_time', 'end_time', 'starting_date', 'ending_date', 'employee_id','restDay'];
 
     public function employee()
     {

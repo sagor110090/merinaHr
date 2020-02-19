@@ -101,12 +101,11 @@ class EmployeePersonalInfoController extends Controller
     public function edit($id)
     {
 
-
         if (Hr::isAdmin()) {
             $employeepersonalinfo = EmployeePersonalInfo::findOrFail($id);
             return view('admin.employee-personal-info.edit', compact('employeepersonalinfo'));
         }
-        elseif($id==EmployeePersonalInfo::where('email',Auth::User()->email)->first()->employee->id){
+        elseif($id==EmployeePersonalInfo::where('email',Auth::User()->email)->first()->id){
 
             $employeepersonalinfo = EmployeePersonalInfo::findOrFail($id);
             return view('admin.employee-personal-info.edit', compact('employeepersonalinfo'));

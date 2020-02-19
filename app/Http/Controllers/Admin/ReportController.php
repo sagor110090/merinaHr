@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Employee;
 use DB;
 use Artisan;
+use Hr;
 class ReportController extends Controller
 {
 

@@ -26,10 +26,10 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Employee</th>
+                        <th>Month</th>
                         <th>Amount</th>
                         <th>Fine</th>
-                        <th>Month</th>
-                        <th>Employee</th>
                         <th>Bank</th>
                         <th>Chcek No</th>
                         <th>Date</th>
@@ -40,11 +40,11 @@
                     @foreach($salary as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->employee->fname.' '.$item->employee->lname }}</td>
+                        <td>{{ $item->month }}</td>
                         <td>{{ $item->amount }}</td>
                         <td>{{ $item->fine }}</td>
-                        <td>{{ $item->month }}</td>
-                        <td>{{ $item->employee->fname.' '.$item->employee->lname }}</td>
-                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->bank->bank_name }}</td>
                         <td>{{ $item->chcek_no }}</td>
                         <td>{{ $item->date }}</td>
                         <td>

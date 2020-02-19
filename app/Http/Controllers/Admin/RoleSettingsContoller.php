@@ -29,11 +29,20 @@ class RoleSettingsContoller extends Controller
         $requestData = [
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make($request->password)
         ];
 
-        $user->update($requestData);
+        if(Hash::check($request->oldpassword,  Auth::user()->password))
+        {
+            $user->update($requestData);
 
-        return redirect('/')->with('flash_message', ' updated!');
+            return redirect('/')->with('flash_message', ' updated!');
+        }
+        else{
+            // dd(Hash::make($request->oldpassword) , Auth::user()->password);
+            return redirect()->back()->with('flash_message', ' Wrong Current Password! try again later');
+        }
+
+
     }
 }

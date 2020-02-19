@@ -40,8 +40,14 @@
                             </div>
 
                             <div class="form-group {{ $errors->has('password') ? 'has-error' : ''}}">
-                                <label for="password" class="control-label">{{ 'Password' }}</label>
+                                <label for="password" class="control-label">{{ 'Change Password' }}</label>
                                 <input class="form-control" name="password" type="text" id="password"  placeholder="Enter New Password" >
+                                {!! $errors->first('file', '<p class="help-block">:message</p>') !!}
+                            </div>
+
+                            <div class="form-group {{ $errors->has('oldpassword') ? 'has-error' : ''}}">
+                                <label for="oldpassword" class="control-label">{{ 'Current Password' }}</label>
+                                <input class="form-control" name="oldpassword" type="text" id="oldpassword"  placeholder="Enter Current Password" >
                                 {!! $errors->first('file', '<p class="help-block">:message</p>') !!}
                             </div>
 

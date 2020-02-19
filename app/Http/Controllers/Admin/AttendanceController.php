@@ -105,7 +105,6 @@ class AttendanceController extends Controller
     public function show($id)
     {
         // if (Hr::isAdmin()) {
-            if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
             $attendance = Attendance::findOrFail($id);
 
             return view('admin.attendance.show', compact('attendance'));

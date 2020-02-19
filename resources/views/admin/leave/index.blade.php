@@ -26,6 +26,7 @@
                         <th>Date</th>
                         <th>Application</th>
                         <th>File</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -39,6 +40,7 @@
                         <td><a href="{{ Storage::url($item->file) }}"  target="_blank">@empty(!$item->file)
                             <i class="fa fa-file" aria-hidden="true"></i>
                         @endempty</a></td>
+                        <td>{{ $item->status }}</td>
                         <td>
                             <a href="{{ url('/admin/leave/' . $item->id) }}" title="View Leave"><button
                                     class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>

@@ -5,6 +5,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Employee;
+use App\Schedule;
 use DB;
 use Artisan;
 use Hr;
@@ -33,8 +34,8 @@ class ReportController extends Controller
 
         // }
         // $monthlyReports = DB::table('monthlyReports')->whereBetween('date', [date("Y-0n-0j", strtotime("first day of previous month")), date("Y-0n-j", strtotime("last day of previous month"))])->get();
-        $employee = Employee::all();
-        return view('admin.report.monthly',compact('employee'));
+        $schedule = Schedule::all();
+        return view('admin.report.monthly',compact('schedule'));
     }
 
     public function monthlyPrivousReport(Request $request)

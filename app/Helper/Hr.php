@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use App\Attendance;
+use App\Leave;
 use session;
 use Auth;
 
@@ -50,7 +51,8 @@ class Hr
 
     public function companyHolidays()
     {
-        return DB::table('companies')->first()->holidays;
+        return json_decode(DB::table('companies')->first()->holidays);
+
     }
     public function companyWorkingHour()
     {
@@ -66,6 +68,7 @@ class Hr
     }
     function getDays($start, $iDays, $aDays,$format) 
     {
+        
       $dStart = date('d', strtotime($start));
       $YM     = substr($start, 0, 8);
     
@@ -88,8 +91,8 @@ class Hr
           } 
         }
     }
-
-        return $dateCount;
+        // dd($dateCount);
+        return count($dateCount);
         
     }
     public function monthlyReport()
@@ -100,9 +103,30 @@ class Hr
     public function countWorkingDayInMonth($offday)
     {
         $dayOfyear = Hr::cal_days_in_year(date('Y'));
-        return cal_days_in_month(CAL_GREGORIAN,date('m'),date('Y')) - count(Hr::getDays(date("Y/m/01"),$dayOfyear,$offday,'D, M jS Y'));
-            
+        return cal_days_in_month(CAL_GREGORIAN,date('m'),date('Y')) - Hr::getDays(date("Y/m/01"),$dayOfyear,$offday[0],'D, M jS Y');
+              
     }
+    
+    public function totalLeave($employee_id)
+    {
+        return Leave::where('status','approve')->where('employee_id',$employee_id)->count();
+       
+    }
+    public function totalAbsence($employee_id)
+    {
+        return Leave::where('status','reject')->where('employee_id',$employee_id)->count();
+       
+    }
+    public function timeDifference($to_time,$from_time)
+    {
+        $to_time = strtotime("2008-12-13 10:42:00");
+        $from_time = strtotime("2008-12-13 10:21:00");
+        echo round(abs($to_time - $from_time) / 60,2);
+    }
+    function minutes($time){
+        $time = explode(':', $time);
+        return ($time[0]*60) + ($time[1]) + ($time[2]/60);
+        }
 
     public function sessionCreate()
     {

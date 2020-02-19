@@ -27,17 +27,17 @@
             <div class="table-responsive">
                 <table class="table">
                     <tbody>
-                        <tr>
+                        {{-- <tr>
                             <th>ID</th>
                             <td>{{ $leave->id }}</td>
-                        </tr>
+                        </tr> --}}
                         <tr>
                             <th>Date</th>
                             <td>{{ $leave->date }}</td>
                         </tr>
                         <tr>
-                            <th> Employee Id </th>
-                            <td> {{ $leave->employee_id }} </td>
+                            <th> Employee Name </th>
+                            <td> {{ $leave->employee->fname.' '.$leave->employee->lname }} </td>
                         </tr>
                         <tr>
                             <th> Application </th>
@@ -45,7 +45,8 @@
                         </tr>
                         <tr>
                             <th> File </th>
-                            <td> {{ $leave->file }} </td>
+                            <td><a href="{{ Storage::url($leave->file) }}"  target="_blank">@empty(!$leave->file)
+                                <i class="fa fa-file" aria-hidden="true"></i> @endempty</a></td>
                         </tr>
                     </tbody>
                 </table>

@@ -34,10 +34,10 @@
                             <td> {{ $schedule ->employee->fname.' '.$schedule ->employee->lname }} </td>
 
                         </tr>
-                        <tr>
+                        {{-- <tr>
                             <th>ID</th>
                             <td>{{ $schedule->id }}</td>
-                        </tr>
+                        </tr> --}}
                         <tr>
                             <th> Start Time </th>
                             <td> {{ $schedule->start_time }} </td>

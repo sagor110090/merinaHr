@@ -8,7 +8,7 @@
     <label for="employee_id" class="control-label">{{ 'Employee Name' }}</label>
     <select name="employee_id" id="employee_id" class="select form-control">
         @foreach (Hr::findAll('employees') as $item)
-            <option value="{{$item->id}}" {{ (Hr::isAdmin()) ? 'disable' : ''}}  
+            <option value="{{$item->id}}" {{ (Hr::isAdmin()) ? 'disable' : ''}}
                 @if(isset($leave->employee_id))
                     @if($leave->employee_id == $item->id)  selected @endif
                 @endif>
@@ -36,7 +36,7 @@
         <option value="approve">Approve</option>
         <option value="reject">Reject</option>
     </select>
-    
+
     <input class="form-control" name="status" type="text" id="status" {{ (Hr::isAdmin()) ? 'hidden' : ''}} value="{{ isset($leave->status) ? $leave->status : ''}}" readonly>
     {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
 </div>

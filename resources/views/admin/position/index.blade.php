@@ -31,9 +31,9 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->position }}</td>
                                     <td>
-                                        <a href="{{ url('/admin/position/' . $item->id) }}"
+                                        {{-- <a href="{{ url('/admin/position/' . $item->id) }}"
                                             title="View Position"><button class="btn btn-info btn-sm"><i
-                                                    class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                                    class="fa fa-eye" aria-hidden="true"></i> View</button></a> --}}
                                         <a href="{{ url('/admin/position/' . $item->id . '/edit') }}"
                                             title="Edit Position"><button class="btn btn-primary btn-sm"><i
                                                     class="fa fa-edit" aria-hidden="true"></i>

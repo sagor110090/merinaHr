@@ -33,11 +33,12 @@
 <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}" >
     <label for="status" class="control-label">{{ 'Status' }}</label>
     <select name="status" id="status" class="form-control"  {{ (!Hr::isAdmin()) ? 'hidden' : ''}} >
+        <option value="pending">Pending</option>
         <option value="approve">Approve</option>
         <option value="reject">Reject</option>
     </select>
     
-    <input class="form-control" name="status" type="text" id="status" {{ (Hr::isAdmin()) ? 'hidden' : ''}} value="{{ isset($leave->status) ? $leave->status : ''}}" readonly>
+    <input class="form-control" type="text" id="status" {{ (Hr::isAdmin()) ? 'hidden' : ''}} value="{{ isset($leave->status) ? $leave->status : ''}}" readonly>
     {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
 </div>
 

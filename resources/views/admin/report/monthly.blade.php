@@ -27,22 +27,34 @@
                         <th width='30'>#</th>
                         <th> Name </th>
                         <th> Late </th>
+                        {{-- <th> Worling Day </th> --}}
+                        <th> Leave </th>
+                        <th> Absence </th>
                         <th> Fine </th>
                         <th> Salary </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($employee as $item)
+                    @foreach ($schedule as $item)
                     @php
-                        $employee_id = $item->fname.' '.$item->lname;
-                        $late = round($item->attendance->whereBetween('date', [date('Y-m-01'), date('Y-m-31')])->sum('late'));
-                        $salary = round((float)$item->salary - $item->attendance->whereBetween('date', [date('Y-m-01'), date('Y-m-31')])->sum('late')*(float)$item->salary/(float)(Hr::countWorkingDayInMonth([Hr::companyHolidays()])*Hr::companyWorkingHour()*60));
+                    // echo Hr::companyHolidays();
+                    // dd(Hr::minutes(date('G:i:s', strtotime($item->end_time) - strtotime($item->start_time))));
+                    $employee_id = $item->employee->fname.' '.$item->employee->lname;
+                    $late = round($item->employee->attendance->whereBetween('date', [date('Y-m-01'), date('Y-m-31')])->sum('late'));
+                    $dalySalary = (float)$item->employee->salary/(float)(Hr::countWorkingDayInMonth([Hr::companyHolidays()])*(Hr::minutes(date('G:i:s', strtotime($item->end_time) - strtotime($item->start_time)))));
+                    $schedule = Hr::minutes(date('G:i:s', strtotime($item->end_time) - strtotime($item->start_time)));
+                    $salary = round((float)$item->employee->salary - $late*$dalySalary - $schedule*(Hr::totalAbsence($item->employee->id)) * $dalySalary);
+                    // Hr::companyBreakHour()
+                    // date('G:i', strtotime($item->schedule->end_time) - strtotime($item->schedule->start_time))
+                    echo $schedule*(Hr::totalAbsence($item->employee->id)) * $dalySalary;
                     @endphp
                     <tr>
                         <td>{{$loop->iteration}}</td>
                         <td>{{$employee_id}}</td>
                         <td>{{ $late }}</td>
-                        <td>{{ $item->salary - $salary }}</td>
+                        <td>{{ (Hr::totalLeave($item->employee->id)) }}</td>
+                        <td>{{ (Hr::totalAbsence($item->employee->id)) }}</td>
+                        <td>{{ $item->employee->salary - $salary }}</td>
                         <td>{{ $salary }}</td>
                         
                     </tr>

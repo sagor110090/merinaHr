@@ -31,5 +31,9 @@ class Employee extends Model
     {
         return $this->hasMany('App\Attendance');
     }
+    public function schedule()
+    {
+        return $this->hasOne('App\Schedule');
+    }
     
 }

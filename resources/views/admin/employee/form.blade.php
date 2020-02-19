@@ -14,8 +14,15 @@
     <label for="department_id" class="control-label">{{ 'Department' }}</label>
     <select name="department_id" id="department_id" class="select form-control">
         @foreach (Hr::findAll('departments') as $item)
-            <option value="{{$item->id}}">{{$item->department}}</option>
+            <option value="{{$item->id}}" {{ (Hr::isAdmin()) ? 'disable' : ''}}
+                @if(isset($employee->department_id))
+                    @if($employee->department_id == $item->id)  selected @endif
+                @endif>
+                {{$item->department}}</option>
         @endforeach
+        {{-- @foreach (Hr::findAll('departments') as $item)
+            <option value="{{$item->id}}">{{$item->department}}</option>
+        @endforeach --}}
     </select>
     {{-- <input class="form-control" name="department_id" type="number" id="department_id" value="{{ isset($employee->department_id) ? $employee->department_id : ''}}" required> --}}
     {!! $errors->first('department_id', '<p class="help-block">:message</p>') !!}
@@ -24,8 +31,15 @@
     <label for="position_id" class="control-label">{{ 'Position' }}</label>
     <select name="position_id" id="position_id" class="select form-control">
         @foreach (Hr::findAll('positions') as $item)
-            <option value="{{$item->id}}">{{$item->position}}</option>
+            <option value="{{$item->id}}" {{ (Hr::isAdmin()) ? 'disable' : ''}}
+                @if(isset($employee->position_id))
+                    @if($employee->position_id == $item->id)  selected @endif
+                @endif>
+                {{$item->position}}</option>
         @endforeach
+        {{-- @foreach (Hr::findAll('positions') as $item)
+            <option value="{{$item->id}}">{{$item->position}}</option>
+        @endforeach --}}
     </select>
     {{-- <input class="form-control" name="position_id" type="number" id="position_id" value="{{ isset($employee->position_id) ? $employee->position_id : ''}}" required> --}}
     {!! $errors->first('position_id', '<p class="help-block">:message</p>') !!}

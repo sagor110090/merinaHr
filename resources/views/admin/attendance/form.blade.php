@@ -2,7 +2,12 @@
     <label for="employee_id" class="control-label">{{ 'Employee' }}</label>
     <select name="employee_id" id="employee_id" class="select form-control">
         @foreach (Hr::findAll('employees') as $item)
-            <option value="{{$item->id}}">{{$item->fname.' '.$item->lname}}</option>
+            <option value="{{$item->id}}" {{ (Hr::isAdmin()) ? 'disable' : ''}}
+                @if(isset($attendance->employee_id))
+                    @if($attendance->employee_id == $item->id)  selected @endif
+                @endif>
+                {{$item->fname.' '.$item->lname}}
+            </option>
         @endforeach
     </select>
     {!! $errors->first('employee_id', '<p class="help-block">:message</p>') !!}
@@ -28,5 +33,5 @@
     <input class="btn btn-primary btn-sm" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
 </div>
 
-           
+
 

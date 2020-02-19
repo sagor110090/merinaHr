@@ -30,12 +30,12 @@
             <div class="table-responsive">
                 <table class="table">
                     <tbody>
-                        <tr>
+                        {{-- <tr>
                             <th>ID</th>
                             <td>{{ $attendance->id }}</td>
-                        </tr>
+                        </tr> --}}
                         <tr>
-                            <th> Employee </th>
+                            <th> Employee Name</th>
                             <td> {{ $attendance ->employee->fname.' '.$attendance ->employee->lname }} </td>
                         </tr>
                         <tr>

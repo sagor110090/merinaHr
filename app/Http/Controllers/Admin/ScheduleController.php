@@ -71,7 +71,6 @@ class ScheduleController extends Controller
     public function show($id)
     {
         $schedule_id = Schedule::where('id',$id)->first()->employee_id;
-        $user_id = EmployeePersonalInfo::where('email',Auth::User()->email)->first()->employee->id;
 
 
         if(Hr::isAdmin()){
@@ -79,7 +78,7 @@ class ScheduleController extends Controller
 
             return view('admin.schedule.show', compact('schedule'));
         }
-        elseif( $schedule_id == $user_id){
+        elseif( $schedule_id == EmployeePersonalInfo::where('email',Auth::User()->email)->first()->employee->id ){
             $schedule = Schedule::findOrFail($id);
 
             return view('admin.schedule.show', compact('schedule'));

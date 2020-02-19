@@ -32,9 +32,9 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->department }}</td>
                             <td>
-                                <a href="{{ url('/admin/department/' . $item->id) }}" title="View Department"><button
+                                {{-- <a href="{{ url('/admin/department/' . $item->id) }}" title="View Department"><button
                                         class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>
-                                        View</button></a>
+                                        View</button></a> --}}
                                 <a href="{{ url('/admin/department/' . $item->id . '/edit') }}"
                                     title="Edit Department"><button class="btn btn-primary btn-sm"><i class="fa fa-edit"
                                             aria-hidden="true"></i>

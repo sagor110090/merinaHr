@@ -30,12 +30,8 @@
                 <table class="table">
                     <tbody>
                         <tr>
-                            <th> Employee Id </th>
+                            <th> Employee Name </th>
                             <td> {{ $salary ->employee->fname.' '.$salary ->employee->lname }} </td>
-                        </tr>
-                        <tr>
-                            <th>ID</th>
-                            <td>{{ $salary->id }}</td>
                         </tr>
                         <tr>
                             <th> Amount </th>
@@ -51,7 +47,7 @@
                         </tr>
                         <tr>
                             <th> Bank Id </th>
-                            <td> {{ $salary->bank_id }} </td>
+                            <td> {{ $salary->bank->bank_name}} </td>
                         </tr>
                         <tr>
                             <th> Chcek No </th>

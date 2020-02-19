@@ -28,8 +28,8 @@
                 <table class="table">
                     <tbody>
                         <tr>
-                            <th>ID</th>
-                            <td>{{ $employee->id }}</td>
+                            <th>Name</th>
+                            <td>{{ $employee->fname.' '.$employee->lname }}</td>
                         </tr>
                         <tr>
                             <th> Department</th>

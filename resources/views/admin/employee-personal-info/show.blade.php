@@ -23,9 +23,26 @@
                             <table class="table">
                                 <tbody>
                                     <tr>
-                                        <th>ID</th><td>{{ $employeepersonalinfo->id }}</td>
+                                        <th>Name</th><td>{{ $employeepersonalinfo->employee->fname.' '.$employeepersonalinfo->employee->lname }}</td>
                                     </tr>
-                                    <tr><th> Picture </th><td> {{ $employeepersonalinfo->picture }} </td></tr><tr><th> Age </th><td> {{ $employeepersonalinfo->age }} </td></tr><tr><th> Address </th><td> {{ $employeepersonalinfo->address }} </td></tr><tr><th> Mobile </th><td> {{ $employeepersonalinfo->mobile }} </td></tr><tr><th> Email </th><td> {{ $employeepersonalinfo->email }} </td></tr><tr><th> File </th><td> {{ $employeepersonalinfo->file }} </td></tr><tr><th> Employee Id </th><td> {{ $employeepersonalinfo->employee_id }} </td></tr>
+                                    <tr>
+                                        <th> Picture </th><td> {{ $employeepersonalinfo->picture }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> Age </th><td> {{ $employeepersonalinfo->age }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> Address </th><td> {{ $employeepersonalinfo->address }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> Mobile </th><td> {{ $employeepersonalinfo->mobile }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> Email </th><td> {{ $employeepersonalinfo->email }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> File </th><td> {{ $employeepersonalinfo->file }} </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

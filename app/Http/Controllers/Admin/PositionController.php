@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Position;
 use Illuminate\Http\Request;
-
+use Hr;
 class PositionController extends Controller
 {
 

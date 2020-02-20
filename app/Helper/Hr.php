@@ -121,9 +121,10 @@ class Hr
         return Leave::where('status','approve')->where('employee_id',$employee_id)->count();
        
     }
-    public function totalAbsence($employee_id)
+    public function totalPresent($employee_id)
     {
-        return Leave::where('status','reject')->where('employee_id',$employee_id)->count();
+        $attendance = Attendance::where('employee_id',$employee_id)->whereRaw('MONTH(date) = ?', date('m'))->count();
+        return $attendance;
        
     }
     public function timeDifference($to_time,$from_time)

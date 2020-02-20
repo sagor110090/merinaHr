@@ -120,9 +120,13 @@ class ScheduleController extends Controller
 			'starting_date' => 'required',
 			'employee_id' => 'required'
 		]);
-        $requestData = $request->all();
+            $requestData = $request->all();
+            if ($request->restDay == null) {
+                $requestData['restDay'] = '["nothing"]' ;
 
-
+            }else{
+                $requestData['restDay'] = json_encode($request->restDay) ;
+            }
             $schedule = Schedule::findOrFail($id);
             $schedule->update($requestData);
 

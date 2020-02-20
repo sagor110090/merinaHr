@@ -41,7 +41,7 @@
     @php
         $days = isset($schedule->restDay) ? json_decode($schedule->restDay) : '';
     @endphp
-    <select class="select-multiple form-control" name="restDay[]" multiple="multiple" value="{{ isset($schedule->restDay) ? $schedule->restDay : ''}}" required>
+    <select class="select-multiple form-control" name="restDay[]" multiple="multiple" value="{{ isset($schedule->restDay) ? $schedule->restDay : ''}}" >
         <option  value='mon' {{ isset($schedule->restDay) ? in_array("mon", $days) ? 'selected' : '' : ''}} > Monday</option>
         <option {{ isset($schedule->restDay) ? in_array("tue", $days) ? 'selected' : '' : ''}} value='tue'>Tuesday</option>
         <option {{ isset($schedule->restDay) ? in_array("wed", $days) ? 'selected' : '' : ''}} value='wed'>Wednesday</option>

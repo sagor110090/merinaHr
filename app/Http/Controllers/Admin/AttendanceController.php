@@ -29,7 +29,7 @@ class AttendanceController extends Controller
                     ->orWhere('date', 'LIKE', "%$keyword%")
                     ->latest()->paginate($perPage);
             } else {
-                $attendance = Attendance::latest()->paginate($perPage);
+                $attendance = Attendance::get();
             }
         }
         else{

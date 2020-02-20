@@ -35,16 +35,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    start
                     @foreach ($schedule as $item)
                     @php
                     $restDay = Hr::restDay($item->employee_id);
-                    echo $restDay; echo '<br>';
+                    // echo $restDay; echo '<br>';
                     // dd(Hr::minutes(date('G:i:s', strtotime($item->end_time) - strtotime($item->start_time))));
                     $employee_id = $item->employee->fname.' '.$item->employee->lname;
-                    echo Hr::countWorkingDayInMonth([Hr::companyHolidays()]); echo '<br>';
+                    // echo Hr::countWorkingDayInMonth([Hr::companyHolidays()]); echo '<br>';
                     $workingDay = Hr::countWorkingDayInMonth([Hr::companyHolidays()]) - $restDay ;
-                    echo $workingDay; echo '<br>';
+                    // echo $workingDay; echo '<br>';
                     $late = round($item->employee->attendance->whereBetween('date', [date('Y-m-01'), date('Y-m-31')])->sum('late'));
                     $dalySalary = (float)$item->employee->salary/(float)($workingDay*(Hr::minutes(date('G:i:s', strtotime($item->end_time) - strtotime($item->start_time)))));
                     $schedule = Hr::minutes(date('G:i:s', strtotime($item->end_time) - strtotime($item->start_time)));
@@ -84,7 +83,6 @@
             viewMode: "months", 
             endDate: '+0m',
             minViewMode: "months"
-            
         });
     </script>
 

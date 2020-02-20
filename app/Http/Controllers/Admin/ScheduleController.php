@@ -61,6 +61,7 @@ class ScheduleController extends Controller
 			'employee_id' => 'required'
 		]);
         $requestData = $request->all();
+        $requestData['restDay'] = json_encode($request->restDay) ;
 
         Schedule::create($requestData);
 

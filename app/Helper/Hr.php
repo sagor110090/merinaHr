@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use App\Attendance;
 use App\Leave;
+use App\Holiday;
 use session;
 use Auth;
 
@@ -125,6 +126,12 @@ class Hr
     {
         $attendance = Attendance::where('employee_id',$employee_id)->whereRaw('MONTH(date) = ?', date('m'))->count();
         return $attendance;
+       
+    }
+    public function totalHoliday()
+    {
+        $holiday = Holiday::whereRaw('MONTH(holiday_date) = ?', date('m'))->count();
+        return $holiday;
        
     }
     public function timeDifference($to_time,$from_time)

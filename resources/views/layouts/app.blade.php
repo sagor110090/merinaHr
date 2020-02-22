@@ -168,6 +168,7 @@
             });
         });
     </script>
+
     @include('layouts.parts.schedule')
 </body>
 

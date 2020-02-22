@@ -35,6 +35,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('admin/settings', 'Admin\\RoleSettingsContoller@show');
     Route::post('admin/settings/{id}', 'Admin\\RoleSettingsContoller@update');
 
+    Route::resource('admin/holiday', 'Admin\\HolidayController');
+
+
 });
 
 

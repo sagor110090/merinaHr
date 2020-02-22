@@ -49,7 +49,7 @@ class LeaveController extends Controller
 			'date' => 'required'
 		]);
         $requestData = $request->all();
-                if ($request->hasFile('file')) {
+        if ($request->hasFile('file')) {
             $requestData['file'] = $request->file('file')
                 ->store('uploads', 'public');
         }
@@ -98,7 +98,6 @@ class LeaveController extends Controller
     public function destroy($id)
     {
         Leave::destroy($id);
-
         return redirect('admin/leave')->with('flash_message', 'Leave deleted!');
     }
 }

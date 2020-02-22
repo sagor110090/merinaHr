@@ -48,11 +48,9 @@
             
             <div class="row">
                 <div id="MyClockDisplay" class="clock" onload="showTime()"></div>
-
-                <div id='loading'>loading...</div>
-
                 <div id='calendar'></div>
             </div>
+
         </div>
     </div>
 </div>
@@ -60,10 +58,7 @@
 @endsection
 
 @push('css')
-<link href='{{ asset('/') }}calender/core/main.css' rel='stylesheet' />
-<link href='{{ asset('/') }}calender/daygrid/main.css' rel='stylesheet' />
-<link href='{{ asset('/') }}calender/list/main.css' rel='stylesheet' />
-<script src='{{ asset('/') }}calender/core/main.js'></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css' />
 <style>
     .clock {
     /* position: absolute; */
@@ -82,41 +77,8 @@
 @endpush
 
 @push('js')
-<script src='{{ asset('/') }}calender/core/main.js'></script>
-<script src='{{ asset('/') }}calender/interaction/main.js'></script>
-<script src='{{ asset('/') }}calender/daygrid/main.js'></script>
-<script src='{{ asset('/') }}calender/list/main.js'></script>
-<script src='{{ asset('/') }}calender/google-calendar/main.js'></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            plugins: ['interaction', 'dayGrid', 'list', 'googleCalendar'],
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,listYear'
-            },
-            displayEventTime: false, // don't show the time column in list view
-            // THIS KEY WON'T WORK IN PRODUCTION!!!
-            // To make your own Google API key, follow the directions here:
-            // http://fullcalendar.io/docs/google_calendar/
-            googleCalendarApiKey: 'AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE',
-            // US Holidays
-            events: 'en.usa#holiday@group.v.calendar.google.com',
-            eventClick: function(arg) {
-                // opens events in a popup window
-                window.open(arg.event.url, 'google-calendar-event', 'width=700,height=600');
-                arg.jsEvent.preventDefault() // don't navigate in main tab
-            },
-            loading: function(bool) {
-                document.getElementById('loading').style.display =
-                    bool ? 'block' : 'none';
-            }
-        });
-        calendar.render();
-    });
-</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js'></script>
 <script>
     function showTime(){
     var date = new Date();
@@ -146,5 +108,21 @@
     
 }
 showTime();
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#calendar').fullCalendar({
+            events : [
+                @foreach(App\Holiday::all() as $holiday)
+                {
+                    title : '{{ $holiday->name }}',
+                    start : '{{ $holiday->holiday_date }}',
+                    url : '{{ route('holiday.edit', $holiday->id) }}'
+                },
+                @endforeach
+            ]
+        })
+    });
 </script>
 @endpush

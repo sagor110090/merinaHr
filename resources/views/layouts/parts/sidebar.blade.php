@@ -82,6 +82,9 @@
                 <hr>
                 @endif
                 @if (Hr::isAdmin())
+                <li class="sidebar-item"><a href="{{ url('/admin/holiday/create') }}" class="sidebar-link"><i
+                    class="mdi mdi-note-outline"></i><span class="hide-menu"> Monthly Holidays Set
+                </span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
                         href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-chart-areaspline"></i><span
                             class="hide-menu">Reports</span></a>

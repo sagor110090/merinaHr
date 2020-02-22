@@ -37,7 +37,7 @@
         <option value="reject">Reject</option>
     </select>
 
-    <input class="form-control" name="status" type="text" id="status" {{ (Hr::isAdmin()) ? 'hidden' : ''}} value="{{ isset($leave->status) ? $leave->status : ''}}" readonly>
+    {{-- <input class="form-control" name="status" type="text" id="status" {{ (Hr::isAdmin()) ? 'hidden' : ''}} value="{{ isset($leave->status) ? $leave->status : ''}}" readonly> --}}
     {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
 </div>
 

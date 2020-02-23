@@ -20,9 +20,9 @@ class ExpanseCategoryController extends Controller
 
         if (!empty($keyword)) {
             $expansecategory = ExpanseCategory::where('category_name', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+                ->all();
         } else {
-            $expansecategory = ExpanseCategory::latest()->paginate($perPage);
+            $expansecategory = ExpanseCategory::all();
         }
 
         return view('admin.expanse-category.index', compact('expansecategory'));

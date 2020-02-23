@@ -177,11 +177,14 @@
                 </li>
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
                         href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span
-                            class="hide-menu">Company Info</span></a>
+                            class="hide-menu">Settings</span></a>
                     <ul aria-expanded="false" class="collapse  first-level">
                         <li class="sidebar-item"><a href="{{ url('/admin/company/1/edit') }}" class="sidebar-link"><i
                                     class="mdi mdi-note-outline"></i><span class="hide-menu"> Company
                                 </span></a></li>
+                        {{-- <li class="sidebar-item"><a href="{{ url('/admin/theme/') }}" class="sidebar-link"><i
+                                    class="mdi mdi-note-outline"></i><span class="hide-menu"> Themes
+                                </span></a></li> --}}
 
                     </ul>
                 </li>

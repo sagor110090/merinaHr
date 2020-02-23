@@ -55,9 +55,14 @@ class Hr
         return json_decode(DB::table('companies')->first()->holidays);
 
     }
-    public function companyWorkingHour()
+    
+    public function companyBreakTime()
     {
-        return DB::table('companies')->first()->working_hour;
+        return DB::table('companies')->first()->break_time;
+    }
+    public function companyInfo()
+    {
+        return DB::table('companies')->first();
     }
 
     function cal_days_in_year($year){
@@ -109,6 +114,12 @@ class Hr
         $dayOfyear = Hr::cal_days_in_year(date('Y'));
         return  Hr::getDays(date("Y/m/01"),$dayOfyear,$restDay,'D, M jS Y');
     }
+    public function restDaySchedule($employee_id)
+    {
+        $restDay = json_decode(DB::table('schedules')->where('employee_id',$employee_id)->first()->restDay);
+        $dayOfyear = Hr::cal_days_in_year(date('Y'));
+        return  Hr::getDays(date("Y-m-01",strtotime("-1 month")),$dayOfyear,$restDay,'D, M jS Y');
+    }
     public function countWorkingDayInMonth($offday)
     {
         // dd($offday[0]);
@@ -116,10 +127,24 @@ class Hr
         return cal_days_in_month(CAL_GREGORIAN,date('m'),date('Y')) - Hr::getDays(date("Y/m/01"),$dayOfyear,$offday[0],'D, M jS Y');
               
     }
+
+    public function countWorkingDayInMonthSchedule($offday)
+    {
+        // dd($offday[0]);
+        $dayOfyear = Hr::cal_days_in_year(date('Y'));
+        return cal_days_in_month(CAL_GREGORIAN,date('m'),date('Y')) - Hr::getDays(date("Y-m-01",strtotime("-1 month")),$dayOfyear,$offday[0],'D, M jS Y');
+              
+    }
     
     public function totalLeave($employee_id)
     {
-        return Leave::where('status','approve')->where('employee_id',$employee_id)->count();
+        return Leave::where('status','approve')->where('employee_id',$employee_id)->whereRaw('MONTH(date) = ?', date('m'))->count();
+       
+    }
+
+    public function totalLeaveSchedule($employee_id)
+    {
+        return Leave::where('status','approve')->where('employee_id',$employee_id)->whereRaw('MONTH(date) = ?', date("m",strtotime("-1 month")))->count();
        
     }
     public function totalPresent($employee_id)
@@ -128,9 +153,21 @@ class Hr
         return $attendance;
        
     }
+    public function totalPresentSchedule($employee_id)
+    {
+        $attendance = Attendance::where('employee_id',$employee_id)->whereRaw('MONTH(date) = ?', date("m",strtotime("-1 month")))->count();
+        return $attendance;
+       
+    }
     public function totalHoliday()
     {
         $holiday = Holiday::whereRaw('MONTH(holiday_date) = ?', date('m'))->count();
+        return $holiday;
+       
+    }
+    public function totalHolidaySchedule()
+    {
+        $holiday = Holiday::whereRaw('MONTH(holiday_date) = ?', date("m",strtotime("-1 month")))->count();
         return $holiday;
        
     }

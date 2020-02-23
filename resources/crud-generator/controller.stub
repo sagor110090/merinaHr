@@ -17,9 +17,9 @@ class DummyClass extends Controller
         $perPage = {{pagination}};
 
         if (!empty($keyword)) {
-            ${{crudName}} = {{modelName}}::{{whereSnippet}}latest()->paginate($perPage);
+            ${{crudName}} = {{modelName}}::{{whereSnippet}}all();
         } else {
-            ${{crudName}} = {{modelName}}::latest()->paginate($perPage);
+            ${{crudName}} = {{modelName}}::all();
         }
 
         return view('{{viewPath}}{{viewName}}.index', compact('{{crudName}}'));

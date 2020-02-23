@@ -25,9 +25,9 @@ class EmployeeController extends Controller
                     ->orWhere('position_id', 'LIKE', "%$keyword%")
                     ->orWhere('start_date', 'LIKE', "%$keyword%")
                     ->orWhere('end_date', 'LIKE', "%$keyword%")
-                    ->latest()->paginate($perPage);
+                    ->all();
             } else {
-                $employee = Employee::latest()->paginate($perPage);
+                $employee = Employee::all();
             }
             return view('admin.employee.index', compact('employee'));
         }

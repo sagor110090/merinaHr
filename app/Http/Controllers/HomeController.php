@@ -50,6 +50,10 @@ class HomeController extends Controller
         return view('crud');
     }
 
+    public function themes()
+    {
+        $themes = DB::table('themes')->get();
+    }
    
 
     

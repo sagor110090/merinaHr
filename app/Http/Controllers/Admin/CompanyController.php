@@ -20,9 +20,9 @@ class CompanyController extends Controller
 
         if (!empty($keyword)) {
             $company = Company::where('name', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+                ->all();
         } else {
-            $company = Company::latest()->paginate($perPage);
+            $company = Company::all();
         }
 
         return view('admin.company.index', compact('company'));
@@ -77,6 +77,14 @@ class CompanyController extends Controller
 
         if(Hr::isAdmin()){
         $company = Company::findOrFail($id);
+
+        if ($request->hasFile('logo1')) {
+            $requestData['logo1'] = $request->file('logo1')
+                ->store('uploads', 'public');}
+        if ($request->hasFile('logo2')) {
+            $requestData['logo2'] = $request->file('logo2')
+                ->store('uploads', 'public');}
+
         $company->update($requestData);
 
         return redirect()->back()->with('flash_message', 'Company updated!');

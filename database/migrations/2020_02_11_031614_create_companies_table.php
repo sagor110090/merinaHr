@@ -15,7 +15,9 @@ class CreateCompaniesTable extends Migration
             $table->string('email')->nullable();
             $table->string('address')->nullable();
             $table->json('holidays')->nullable();
-            $table->string('working_hour')->nullable();
+            $table->string('break_time')->nullable();
+            $table->string('logo1')->nullable();
+            $table->string('logo2')->nullable();
             });
     }
 

@@ -31,9 +31,9 @@ class EmployeePersonalInfoController extends Controller
                     ->orWhere('email', 'LIKE', "%$keyword%")
                     ->orWhere('file', 'LIKE', "%$keyword%")
                     ->orWhere('employee_id', 'LIKE', "%$keyword%")
-                    ->latest()->paginate($perPage);
+                    ->all();
             } else {
-                $employeepersonalinfo = EmployeePersonalInfo::latest()->paginate($perPage);
+                $employeepersonalinfo = EmployeePersonalInfo::all();
             }
         }
         else{
@@ -60,7 +60,7 @@ class EmployeePersonalInfoController extends Controller
     {
         if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $this->validate($request, [
-			'employee_id' => 'required',
+			'employee_id' => 'required|unique:employee_personal_infos',
 			'email' => 'required'
 		]);
         $employee = Employee::where('id',$request->employee_id)->first();
@@ -121,7 +121,7 @@ class EmployeePersonalInfoController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-			'employee_id' => 'required',
+			'employee_id' => 'required|unique:employee_personal_infos',
 			'email' => 'required'
 		]);
         $requestData = $request->all();

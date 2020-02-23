@@ -20,9 +20,9 @@ class DepartmentController extends Controller
 
         if (!empty($keyword)) {
             $department = Department::where('department', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+                ->all();
         } else {
-            $department = Department::latest()->paginate($perPage);
+            $department = Department::all();
         }
 
         return view('admin.department.index', compact('department'));

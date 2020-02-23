@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/') }}assets/images/favicon.png">
-    <title>MerinaSoft Hr - </title>
+    <title>{{Hr::companyInfo()->name}} HRM </title>
     <!-- Custom CSS -->
     {{-- <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"> --}}
 
@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{{ asset('mdb/style.css') }}">
     <link rel="stylesheet" href="{{ asset('mdb/addons/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ asset('/backend/css/select2.css') }}" rel="stylesheet" />
     @stack('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
@@ -105,8 +105,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center">
-                HR Management System <a
-                    href="https://merinasoftbd.com">MerinaSoft</a>.
+               {{Hr::companyInfo()->name}} <br> Address : {{Hr::companyInfo()->address}} 
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
@@ -134,8 +133,6 @@
     <script src="{{ asset('/') }}dist/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="{{ asset('/') }}dist/js/custom.min.js"></script>
-    <!--This page JavaScript -->
-    <script src="{{ asset('/') }}dist/js/pages/dashboards/dashboard1.js"></script>
     <!-- Charts js Files -->
     <script src="{{ asset('/') }}assets/libs/flot/excanvas.js"></script>
     <script src="{{ asset('/') }}assets/libs/flot/jquery.flot.js"></script>
@@ -145,8 +142,6 @@
     <script src="{{ asset('/') }}assets/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="{{ asset('/') }}assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="{{ asset('/') }}dist/js/pages/chart/chart-page-init.js"></script>
-    <script src="{{ asset('/') }}backend/jquery.slimscroll.js"></script>
-    <script src="{{ asset('/') }}backend/perfect-scrollbar.min.js"></script>
     @stack('js')
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>

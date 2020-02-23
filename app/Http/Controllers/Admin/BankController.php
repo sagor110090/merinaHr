@@ -23,9 +23,9 @@ class BankController extends Controller
                 ->orWhere('account_name', 'LIKE', "%$keyword%")
                 ->orWhere('branch', 'LIKE', "%$keyword%")
                 ->orWhere('account_Id', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+                ->all();
         } else {
-            $bank = Bank::latest()->paginate($perPage);
+            $bank = Bank::all();
         }
 
         return view('admin.bank.index', compact('bank'));

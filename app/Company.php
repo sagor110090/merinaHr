@@ -21,7 +21,9 @@ class Company extends Model
     'email',
     'address',
     'holidays',
-    'working_hour'];
+    'break_time',
+    'logo1',
+    'logo2'];
 
     
 }

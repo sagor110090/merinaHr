@@ -27,7 +27,7 @@ class AttendanceController extends Controller
                     ->orWhere('attendance', 'LIKE', "%$keyword%")
                     ->orWhere('late', 'LIKE', "%$keyword%")
                     ->orWhere('date', 'LIKE', "%$keyword%")
-                    ->latest()->paginate($perPage);
+                    ->all();
             } else {
                 $attendance = Attendance::get();
             }

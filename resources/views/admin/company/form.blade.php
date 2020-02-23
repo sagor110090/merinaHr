@@ -4,6 +4,18 @@
         value="{{ isset($company->name) ? $company->name : ''}}">
     {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
 </div>
+<div class="form-group {{ $errors->has('logo1') ? 'has-error' : ''}}">
+    <label for="logo1" class="control-label">{{ 'Logo 1' }}</label>
+    <input class="form-control" name="logo1" type="file" id="logo1"
+        value="{{ isset($company->logo1) ? $company->logo1 : ''}}">
+    {!! $errors->first('logo1', '<p class="help-block">:message</p>') !!}
+</div>
+<div class="form-group {{ $errors->has('logo2') ? 'has-error' : ''}}">
+    <label for="name" class="control-label">{{ 'Logo 2' }}</label>
+    <input class="form-control" name="logo2" type="file" id="logo2"
+        value="{{ isset($company->logo2) ? $company->logo2 : ''}}">
+    {!! $errors->first('logo2', '<p class="help-block">:message</p>') !!}
+</div>
 <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
     <label for="email" class="control-label">{{ 'Email' }}</label>
     <input class="form-control" name="email" type="text" id="email"
@@ -16,20 +28,21 @@
         value="{{ isset($company->address) ? $company->address : ''}}">
     {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
 </div>
-<div class="form-group {{ $errors->has('working_hour') ? 'has-error' : ''}}">
-    <label for="working_hour" class="control-label">{{ 'Working hour' }}</label>
-    <input class="form-control" name="working_hour" type="text" id="working_hour"
-        value="{{ isset($company->working_hour) ? $company->working_hour : ''}}">
-    {!! $errors->first('working_hour', '<p class="help-block">:message</p>') !!}
+<div class="form-group {{ $errors->has('break_time') ? 'has-error' : ''}}">
+    <label for="break_time" class="control-label">{{ 'Break time ' }}</label>
+    <input class="form-control" name="break_time" type="text" id="break_time" placeholder="In minute"
+        value="{{ isset($company->break_time) ? $company->break_time : ''}}">
+    {!! $errors->first('break_time', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group {{ $errors->has('holidays') ? 'has-error' : ''}}">
     <label for="holidays" class="control-label">{{ 'Holidays' }}</label>
     @php
-        // $days = ['nothing'];
-        $days= json_decode($company->holidays);        
+    // $days = ['nothing'];
+    $days= json_decode($company->holidays);
     @endphp
-    <select class="select-multiple form-control " name="holidays[]" multiple="multiple" value="{{ isset($company->holidays) ? $company->holidays : ''}}" required>
-        <option value='mon' {{ in_array("mon", $days) ? 'selected' : '' }} >Monday</option>
+    <select class="select-multiple form-control " name="holidays[]" multiple="multiple"
+        value="{{ isset($company->holidays) ? $company->holidays : ''}}" required>
+        <option value='mon' {{ in_array("mon", $days) ? 'selected' : '' }}>Monday</option>
         <option value='tue' {{ in_array("tue", $days) ? 'selected' : '' }}>Tuesday</option>
         <option value='wed' {{ in_array("wed", $days) ? 'selected' : '' }}>Wednesday</option>
         <option value='thu' {{ in_array("thu", $days) ? 'selected' : '' }}>Thursday</option>

@@ -20,9 +20,9 @@ class PositionController extends Controller
 
         if (!empty($keyword)) {
             $position = Position::where('position', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+                ->all();
         } else {
-            $position = Position::latest()->paginate($perPage);
+            $position = Position::all();
         }
 
         return view('admin.position.index', compact('position'));

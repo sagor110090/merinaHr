@@ -23,9 +23,9 @@ class ExpenseController extends Controller
             $expense = Expense::where('expanse_categories_id', 'LIKE', "%$keyword%")
                 ->orWhere('amount', 'LIKE', "%$keyword%")
                 ->orWhere('date', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+                ->all();
         } else {
-            $expense = Expense::latest()->paginate($perPage);
+            $expense = Expense::all();
         }
 
         return view('admin.expense.index', compact('expense'));

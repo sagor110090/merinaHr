@@ -1,7 +1,7 @@
 <div class="form-group {{ $errors->has('employee_id') ? 'has-error' : ''}}">
     <label for="employee_id" class="control-label">{{ 'Employee' }}</label>
     {{-- <input class="form-control" name="employee_id" type="text" id="employee_id" value="{{ isset($salary->employee_id) ? $salary->employee_id : ''}}" required> --}}
-    <select name="employee_id" id="employee_id" class="select form-control">
+    <select name="employee_id" id="employee_id" class="form-control select">
         @foreach (Hr::findAll('employees') as $item)
             <option value="{{$item->id}}">{{$item->fname.' '.$item->lname}}</option>
         @endforeach

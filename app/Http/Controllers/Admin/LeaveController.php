@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Hr;
 use App\Leave;
 use Illuminate\Http\Request;
+Use Auth;
+use Mail;
+use App\Mail\leaveNotification;
 
 class LeaveController extends Controller
 {
@@ -22,9 +25,9 @@ class LeaveController extends Controller
                 ->orWhere('date', 'LIKE', "%$keyword%")
                 ->orWhere('file', 'LIKE', "%$keyword%")
                 ->orWhere('status', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+                ->all();
         } else {
-            $leave = Leave::latest()->paginate($perPage);
+            $leave = Leave::all();
         }
 
         return view('admin.leave.index', compact('leave'));
@@ -42,7 +45,7 @@ class LeaveController extends Controller
     public function store(Request $request)
     {
         if (!Hr::isUser()) { return redirect()->back()->with('flash_message', 'Permission Demied!');  }
-
+        
         $this->validate($request, [
 			'employee_id' => 'required',
 			'application' => 'required',
@@ -53,9 +56,19 @@ class LeaveController extends Controller
             $requestData['file'] = $request->file('file')
                 ->store('uploads', 'public');
         }
-
-        Leave::create($requestData);
-
+// dd(Auth::user()->email);
+        $leave = Leave::create($requestData);
+        // dd($leave->id);
+        $myEmail = Auth::user()->email;
+   
+        $details = [
+            'title' => 'Leave Application',
+            'url' => '/admin/leave/'.$leave->id
+        ];
+  
+        Mail::to($myEmail)->send(new leaveNotification($details));
+   
+        // dd("Mail Send Successfully");
         return redirect('admin/leave')->with('flash_message', 'Leave added!');
     }
 

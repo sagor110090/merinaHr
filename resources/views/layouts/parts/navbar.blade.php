@@ -12,14 +12,15 @@
               <b class="logo-icon p-l-10">
                   <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                   <!-- Dark Logo icon -->
-                  <img src="{{ asset('/') }}assets/images/logo-icon.png" alt="homepage" class="light-logo" style="height: 44px;width: 44px" />
+                  {{-- Storage::disk('public')->get('uploads\filename.jpg') --}}
+                  <img src="{{(Hr::companyInfo()->logo1 != null) ? Storage::url(Hr::companyInfo()->logo1)  :  asset('/').'assets/images/logo-icon.png'}}" alt="homepage" class="light-logo" style="height: 44px;width: 44px" />
 
               </b>
               <!--End Logo icon -->
               <!-- Logo text -->
               <span class="logo-text">
                   <!-- dark Logo text -->
-                  <img src="{{ asset('/') }}assets/images/logo-text.png" style="height: 44px;width: 174px" alt="homepage" class="light-logo" />
+                  <img src="{{(Hr::companyInfo()->logo2 != null) ? Storage::url(Hr::companyInfo()->logo2)  :  asset('/').'assets/images/logo-text.png'}}"style="height: 44px;width: 174px" alt="homepage" class="light-logo" />
 
               </span>
               <!-- Logo icon -->

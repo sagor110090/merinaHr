@@ -30,6 +30,11 @@ class CompanyTableSeeder extends Seeder
             'start_date' => date('Y-m-d'),
         ]);
 
+        DB::table('employee_personal_infos')->insert([
+            'employee_id' => 1,
+            'email' => 'mehedihasansagor.cse@gmail.com'
+        ]);
+
         DB::table('schedules')->insert([
             'start_time' => '09:00:00',
             'end_time' => '17:00:00',

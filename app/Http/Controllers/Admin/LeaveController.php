@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Hr;
 use App\Leave;
+use App\EmployeePersonalInfo;
 use Illuminate\Http\Request;
 Use Auth;
 use Mail;
@@ -47,7 +48,6 @@ class LeaveController extends Controller
         if (!Hr::isUser()) { return redirect()->back()->with('flash_message', 'Permission Demied!');  }
         
         $this->validate($request, [
-			'employee_id' => 'required',
 			'application' => 'required',
 			'date' => 'required'
 		]);
@@ -56,6 +56,8 @@ class LeaveController extends Controller
             $requestData['file'] = $request->file('file')
                 ->store('uploads', 'public');
         }
+        $employeeId = EmployeePersonalInfo::where('email',Auth::user()->email)->first()->employee_id;
+        $requestData['employee_id'] = $employeeId;
 // dd(Auth::user()->email);
         $leave = Leave::create($requestData);
         // dd($leave->id);

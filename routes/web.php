@@ -1,6 +1,6 @@
 <?php
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/crudIndex', 'HomeController@crudIndex');
 Route::get('/crud2index', 'HomeController@crud2index');

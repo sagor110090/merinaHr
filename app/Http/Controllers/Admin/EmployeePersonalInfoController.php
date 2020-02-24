@@ -61,7 +61,7 @@ class EmployeePersonalInfoController extends Controller
         if (!Hr::isAdmin()) { return redirect()->back()->with('flash_message', 'Permission Denied!');  }
         $this->validate($request, [
 			'employee_id' => 'required|unique:employee_personal_infos',
-			'email' => 'required'
+			'email' => 'required|unique:employee_personal_infos',
 		]);
         $employee = Employee::where('id',$request->employee_id)->first();
         $name = $employee->fname.' '.$employee->lname;
@@ -122,7 +122,7 @@ class EmployeePersonalInfoController extends Controller
     {
         $this->validate($request, [
 			'employee_id' => 'required|unique:employee_personal_infos',
-			'email' => 'required'
+			'email' => 'required|unique:employee_personal_infos',
 		]);
         $requestData = $request->all();
                 if ($request->hasFile('picture')) {

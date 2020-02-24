@@ -41,6 +41,18 @@
             </div>
         </div>
     </div>
+    <div class="card">
+        <div class="card-body">
+            
+            <div class="row">
+                <div class="col">
+                    <div class="card card-hover">
+                            <img src="{{ asset('img/human_resources_management.jpeg') }}" alt="" srcset="" height="340px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="col-md-6">
     <div class="card">

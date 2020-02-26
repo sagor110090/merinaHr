@@ -26,7 +26,7 @@
                                         <th>Name</th><td>{{ $employeepersonalinfo->employee->fname.' '.$employeepersonalinfo->employee->lname }}</td>
                                     </tr>
                                     <tr>
-                                        <th> Picture </th><td> {{ $employeepersonalinfo->picture }} </td>
+                                        <th> Picture </th><td> <img src="{{ Storage::url($employeepersonalinfo->picture)  }}" alt="{{ $employeepersonalinfo->employee->fname }} {{ $employeepersonalinfo->employee->lname }}" height="150px" width="170px" > </td>
                                     </tr>
                                     <tr>
                                         <th> Age </th><td> {{ $employeepersonalinfo->age }} </td>

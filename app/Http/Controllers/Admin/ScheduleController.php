@@ -26,9 +26,9 @@ class ScheduleController extends Controller
                     ->orWhere('starting_date', 'LIKE', "%$keyword%")
                     ->orWhere('ending_date', 'LIKE', "%$keyword%")
                     ->orWhere('employee_id', 'LIKE', "%$keyword%")
-                    ->all();
+                    ->latest()->paginate($perPage);
             } else {
-                $schedule = Schedule::all();
+                $schedule = Schedule::latest()->paginate($perPage);
             }
         }
         else{
@@ -58,7 +58,7 @@ class ScheduleController extends Controller
 			'start_time' => 'required',
 			'end_time' => 'required',
 			'starting_date' => 'required',
-			'employee_id' => 'required|unique:schedules'
+			'employee_id' => 'required'
 		]);
         $requestData = $request->all();
         $requestData['restDay'] = json_encode($request->restDay) ;
@@ -118,15 +118,11 @@ class ScheduleController extends Controller
 			'start_time' => 'required',
 			'end_time' => 'required',
 			'starting_date' => 'required',
-			'employee_id' => 'required|unique:schedules'
+			'employee_id' => 'required'
 		]);
-            $requestData = $request->all();
-            if ($request->restDay == null) {
-                $requestData['restDay'] = '["nothing"]' ;
+        $requestData = $request->all();
 
-            }else{
-                $requestData['restDay'] = json_encode($request->restDay) ;
-            }
+
             $schedule = Schedule::findOrFail($id);
             $schedule->update($requestData);
 

@@ -42,7 +42,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->employee->fname }} {{ $item->employee->lname }}</td>
-                            <td><img src="{{ Storage::url($item->picture)  }}" height="50px" width="50px"></td>
+                            <td><img src="{{ Storage::url($item->picture)  }}" alt="{{ $item->employee->fname }} {{ $item->employee->lname }}" height="50px" width="50px"></td>
                             <td>{{ $item->age }}</td>
                             <td>{{ $item->address }}</td>
                             <td>{{ $item->mobile }}</td>
